@@ -1,0 +1,116 @@
+project_name: statica
+
+before:
+  hooks:
+    - go mod tidy
+builds:
+  -
+    env:
+      - CGO_ENABLED=0
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - -trimpath
+    ldflags:
+      - "-s -w -X main.version={{.Version}} -X main.commit={{.Commit}}"
+    goos:
+      - windows
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - "386"
+      - arm
+      - arm64
+    goarm:
+      - 6
+      - 7
+    ignore:
+      - goos: darwin
+        goarch: "386"
+      - goos: linux
+        goarch: arm
+        goarm: 6
+    binary: statica
+
+archives:
+  - format: tar.gz
+    name_template: "{{ .ProjectName }}_v{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+release:
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - Merge pull request
+      - Merge branch
+      - '[skip ci]'
+
+checksum:
+  name_template: "{{ .ProjectName }}_checksums.txt"
+  algorithm: sha256
+
+brews:
+  -
+    name: statica
+    tap:
+      owner: vojtechmares
+      name: homebrew-tap
+    homepage: https://github.com/vojtechmares/statica
+    url_template: "https://github.com/vojtechmares/statica/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    folder: Formula
+    caveats: "How to use this binary: https://github.com/vojtechmares/statica#usage"
+    description: "Simple CLI tool to deploy static websites to AWS S3 with Cloudflare DNS"
+    test: |
+      system "#{bin}/statica --version"
+
+dockers:
+    -
+      goos: linux
+      goarch: amd64
+      image_templates:
+        - "vojtechmares/statica:latest-stable"
+        - "vojtechmares/statica:{{ .Tag }}"
+      skip_push: false
+      dockerfile: .docker/Dockerfile
+      binaries:
+        - statica
+      build_flag_templates:
+        - "--label=org.opencontainers.image.created={{.Date}}"
+        - "--label=org.opencontainers.image.title={{.ProjectName}}"
+        - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+        - "--label=org.opencontainers.image.version={{.Version}}"
+        - "--label=org.label-schema.schema-version=1.0"
+        - "--label=org.label-schema.version={{.Version}}"
+        - "--label=org.label-schema.name={{.ProjectName}}"
+        - "--label=com.github.actions.name={{.ProjectName}}"
+        - "--label=com.github.actions.description=Simple CLI tool to deploy static websites to AWS S3 with Cloudflare DNS"
+        - "--label=com.github.actions.icon=terminal"
+        - "--label=com.github.actions.color=blue"
+        - "--label=repository=https://github.com/vojtechmares/statica"
+        - "--label=maintainer=Vojtech Mares <iam@vojtechmares.com>"
+    - goos: linux
+      goarch: arm64
+      image_templates:
+        - "vojtechmares/statica:latest-stable-arm64v8"
+        - "vojtechmares/statica:{{ .Tag }}-arm64v8"
+      skip_push: false
+      dockerfile: .docker/Dockerfile-arm64v8
+      binaries:
+        - statica
+      build_flag_templates:
+        - "--label=org.opencontainers.image.created={{.Date}}"
+        - "--label=org.opencontainers.image.title={{.ProjectName}}"
+        - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+        - "--label=org.opencontainers.image.version={{.Version}}"
+        - "--label=org.label-schema.schema-version=1.0"
+        - "--label=org.label-schema.version={{.Version}}"
+        - "--label=org.label-schema.name={{.ProjectName}}"
+        - "--label=com.github.actions.name={{.ProjectName}}"
+        - "--label=com.github.actions.description=Simple CLI tool to deploy static websites to AWS S3 with Cloudflare DNS"
+        - "--label=com.github.actions.icon=terminal"
+        - "--label=com.github.actions.color=blue"
+        - "--label=repository=https://github.com/vojtechmares/statica"
+        - "--label=maintainer=Vojtech Mares <iam@vojtechmares.com>"
