@@ -1,6 +1,6 @@
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/aws/aws-sdk-go v1.35.33 h1:8qPRZqCRok5i7VNN51k/Ky7CuyoXMdSs4mUfKyCqvPw=
-github.com/aws/aws-sdk-go v1.35.33/go.mod h1:hcU610XS61/+aQV88ixoOzUoG7v3b31pl2zKMmprdro=
+github.com/aws/aws-sdk-go v1.35.34 h1:PfsnVvEq7FgsgIOsW8YeParB9ZknW4NXPXcsgqt4srE=
+github.com/aws/aws-sdk-go v1.35.34/go.mod h1:hcU610XS61/+aQV88ixoOzUoG7v3b31pl2zKMmprdro=
 github.com/cloudflare/cloudflare-go v0.13.5 h1:28S2iEUK67exPyt/IkmAIFbDAVjyKU1cYzrURj5k84s=
 github.com/cloudflare/cloudflare-go v0.13.5/go.mod h1:OgJ1r3tslnIyWr7kX2OCBKUbSnUIyFKEIlZex9qgmIo=
 github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d/go.mod h1:maD7wRr/U5Z6m/iR4s+kqSMx2CaBsrgA7czyZG/E6dU=
