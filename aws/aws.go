@@ -71,6 +71,50 @@ func (aws *AWS) UploadFilesFromDir(b *Bucket, dir string) {
 	aws.logger.Println("Upload complete")
 }
 
+func (aws *AWS) DestroyBucket(bucketName string) {
+	svc := aws.getS3()
+
+	aws.logger.Println("Looking for bucket to delete...")
+	blo, err := svc.ListBuckets(&amazon_s3.ListBucketsInput{})
+	if err != nil {
+		aws.logger.Fatalf("Unable to get list of buckets\n%v\n", err)
+	}
+
+	exists := false
+	for _, b := range blo.Buckets {
+		if *b.Name == bucketName {
+			aws.logger.Println("Bucket found.")
+			exists = true
+			break
+		}
+	}
+
+	if !exists {
+		aws.logger.Fatalln("AWS S3 bucket not found. Canceled.")
+	}
+
+	var bucket *string = amazon_aws.String(bucketName)
+
+	iter := amazon_s3manager.NewDeleteListIterator(svc, &amazon_s3.ListObjectsInput{
+		Bucket: bucket,
+	})
+
+	aws.logger.Println("Deleting all bucket objects...")
+	if err := amazon_s3manager.NewBatchDeleteWithClient(svc).Delete(amazon_aws.BackgroundContext(), iter); err != nil {
+		aws.logger.Fatalf("Unable to delete objects from bucket %q, %v", bucket, err)
+	}
+
+	aws.logger.Println("Deleting AWS S3 bucket...")
+	_, err = svc.DeleteBucket(&amazon_s3.DeleteBucketInput{
+		Bucket: bucket,
+	})
+	if err != nil {
+		aws.logger.Fatalf("Error while deleting S3 bucket\n%v", err)
+	}
+
+	aws.logger.Println("AWS S3 bucket delete")
+}
+
 func (aws *AWS) getS3() *amazon_s3.S3 {
 	return amazon_s3.New(aws.session)
 }

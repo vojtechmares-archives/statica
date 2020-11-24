@@ -39,25 +39,55 @@ statica is configured via environment variables
 
 statica currently does **not** support configuration files
 
-### Flags
-
-- `bucket-name` - Overrides default bucket name (default bucket name is `domain` argument)
-- `bucket-prefix` - Adds prefix in front of bucket name (does not include separator)
-- `bucket-suffix` - Adds suffix behind bucket name (does not include separator)
-
 ## Usage
 
+### Example
+
 ```bash
-statica <domain> <directory>
+statica example.com dist
 ```
 
 - `domain` is your domain in Cloudflare, this argument is mandatory
 - `directory` is directory from which to deploy files to S3, default is `.` (current working directory)
 
-### Example
+### Commands
+
+#### statica
+
+Deploys content from directory
+
+Requires at least one argument (domain)
 
 ```bash
-statica statica.example.com
+statica example.com
 ```
 
-Uploads all files from current working directory to AWS S3 and creates DNS CNAME record pointing to the S3 bucket website endpoint.
+Second argument is optional and specifies source directory of files to upload
+
+Default: `.` (current working directory)
+
+##### Flags
+
+- `bucket-name` - Overrides default bucket name (default bucket name is `domain` argument)
+- `bucket-prefix` - Adds prefix in front of bucket name (does not include separator)
+- `bucket-suffix` - Adds suffix behind bucket name (does not include separator)
+
+#### statica destroy
+
+Deletes AWS s3 bucket (including content) and Cloudflare DNS record
+
+Requires exactly one argument (domain)
+
+```bash
+statica destroy example.com
+```
+
+##### Flags
+
+- `bucket-name` - Overrides default bucket name (default bucket name is `domain` argument)
+- `bucket-prefix` - Adds prefix in front of bucket name (does not include separator)
+- `bucket-suffix` - Adds suffix behind bucket name (does not include separator)
+
+#### statica version
+
+Prints version of statica.
