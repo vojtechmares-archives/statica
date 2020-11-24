@@ -29,10 +29,10 @@ func main() {
 	var bucketNameSuffix string
 	flag.StringVar(&bucketNameSuffix, "bucket-suffix", "", "Bucket name prefix (empty by default)")
 	var v bool
-	flag.BoolVar(&v, "version", true, "Statica version")
+	flag.BoolVar(&v, "version", false, "Statica version")
 	flag.Parse()
 
-	if flag.Lookup("version") != nil {
+	if flag.Lookup("version") != nil && v {
 		fmt.Printf("Statica version: %s\n", version)
 		os.Exit(0)
 	}
