@@ -44,7 +44,7 @@ func (cf *Cloudflare) ConfigureDomain(domain, content string) {
 
 	name := strings.Replace(domain, fmt.Sprintf(".%s", baseDomain), "", 1)
 
-	if !cf.doesDNSRecordExist(domain, content) {
+	if !cf.doesDNSRecordExist(domain) {
 		_, err = cf.api.CreateDNSRecord(
 			zoneID,
 			cloudflare.DNSRecord{
@@ -62,7 +62,7 @@ func (cf *Cloudflare) ConfigureDomain(domain, content string) {
 	cf.logger.Println("Cloudflare DNS configuration completed")
 }
 
-func (cf *Cloudflare) doesDNSRecordExist(domain, content string) bool {
+func (cf *Cloudflare) doesDNSRecordExist(domain string) bool {
 	baseDomain, err := publicsuffix.EffectiveTLDPlusOne(domain)
 	if err != nil {
 		cf.logger.Fatalf("Error while getting eTLD\n%v", err)
