@@ -11,7 +11,9 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      - "-s -w -X main.version={{.Version}} -X main.commit={{.Commit}}"
+      - -s
+      - -w
+      - -X github.com/vojtechmares/statica/cmd.version={{.Version}}
     goos:
       - windows
       - linux
@@ -37,16 +39,6 @@ archives:
     name_template: "{{ .ProjectName }}_v{{ .Version }}_{{ .Os }}_{{ .Arch }}"
 
 release:
-
-changelog:
-  sort: asc
-  filters:
-    exclude:
-      - '^docs:'
-      - '^test:'
-      - Merge pull request
-      - Merge branch
-      - '[skip ci]'
 
 checksum:
   name_template: "{{ .ProjectName }}_checksums.txt"
