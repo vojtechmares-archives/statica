@@ -1,6 +1,14 @@
-# statica
-
-Simple CLI tool to deploy static websites to AWS S3 with Cloudflare DNS
+<p align="center">
+  <h2 align="center">statica</h2>
+  <p align="center">Simple CLI tool to deploy static websites to AWS S3 with Cloudflare DNS</p>
+  <p align="center">
+    <a href="https://github.com/vojtechmares/statica/releases/latest"><img alt="Release" src="https://img.shields.io/github/release/vojtechmares/statica.svg?style=for-the-badge"></a>
+    <a href="/LICENSE"><img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=for-the-badge"></a>
+    <a href="https://github.com/vojtechmares/statica/actions?workflow=Build"><img alt="GitHub Actions" src="https://img.shields.io/github/workflow/status/vojtechmares/statica/Build?style=for-the-badge"></a>
+    <a href="https://goreportcard.com/report/github.com/vojtechmares/statica"><img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/vojtechmares/statica?style=for-the-badge"></a>
+    <a href="https://github.com/goreleaser"><img alt="Powered By: GoReleaser" src="https://img.shields.io/badge/powered%20by-goreleaser-green.svg?style=for-the-badge"></a>
+  </p>
+</p>
 
 ## Features
 
