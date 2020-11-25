@@ -26,9 +26,10 @@ type AWSCredentials struct {
 }
 
 type directoryIterator struct {
-	filePaths []string
-	bucket    string
-	next      struct {
+	uploadPath string
+	filePaths  []string
+	bucket     string
+	next       struct {
 		path string
 		f    *os.File
 	}
@@ -122,7 +123,6 @@ func (aws *AWS) getS3() *amazon_s3.S3 {
 func newDirectoryIterator(bucket, dir string) amazon_s3manager.BatchUploadIterator {
 	paths := []string{}
 	filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
-		// We care only about files, not directories
 		if !info.IsDir() {
 			paths = append(paths, path)
 		}
@@ -130,19 +130,25 @@ func newDirectoryIterator(bucket, dir string) amazon_s3manager.BatchUploadIterat
 	})
 
 	return &directoryIterator{
-		filePaths: paths,
-		bucket:    bucket,
+		filePaths:  paths,
+		bucket:     bucket,
+		uploadPath: dir,
 	}
 }
 
 func (iter *directoryIterator) UploadObject() amazon_s3manager.BatchUploadObject {
 	f := iter.next.f
-	key := iter.next.path
 	contentType := mime.TypeByExtension(filepath.Ext(iter.next.path))
-
-	if i := strings.Index(iter.next.path, "/"); i != -1 {
-		key = iter.next.path[i:]
+	basePath, err := filepath.Abs(iter.uploadPath)
+	if err != nil {
+		panic(err)
 	}
+	keyPath, err := filepath.Abs(iter.next.path)
+	if err != nil {
+		panic(err)
+	}
+	key := strings.ReplaceAll(keyPath, basePath, "")
+
 	return amazon_s3manager.BatchUploadObject{
 		Object: &amazon_s3manager.UploadInput{
 			Bucket:      &iter.bucket,
