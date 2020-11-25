@@ -23,7 +23,7 @@ Supports macOS and linux.
 ### Docker
 
 ```bash
-docker pull -it vojtechmares/statica
+docker pull vojtechmares/statica
 ```
 
 ## Configuration
