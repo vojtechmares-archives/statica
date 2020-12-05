@@ -63,7 +63,7 @@ func areConfVarsSet() bool {
 	}
 
 	if !viper.IsSet("CF_API_TOKEN") {
-		fmt.Println("Missing required environment variable STATICA_AWS_ACCESS_KEY_ID")
+		fmt.Println("Missing required environment variable STATICA_CF_API_TOKEN")
 		missingConfVar = true
 	}
 
