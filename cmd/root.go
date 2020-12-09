@@ -20,6 +20,7 @@ var (
 	bucketName       string
 	bucketNamePrefix string
 	bucketNameSuffix string
+	noDns            bool
 
 	domain    string
 	uploadDir string = "."
@@ -30,6 +31,7 @@ func init() {
 	rootCmd.Flags().StringVar(&bucketName, "bucket-name", "", "Overrides bucket name")
 	rootCmd.Flags().StringVar(&bucketNamePrefix, "bucket-prefix", "", "Bucket name prefix (empty by default)")
 	rootCmd.Flags().StringVar(&bucketNameSuffix, "bucket-suffix", "", "Bucket name prefix (empty by default)")
+	rootCmd.Flags().BoolVar(&noDns, "no-dns", false, "Omits creation of DNS record")
 }
 
 func initConfig() {
@@ -64,7 +66,11 @@ func areConfVarsSet() bool {
 
 	if !viper.IsSet("CF_API_TOKEN") {
 		fmt.Println("Missing required environment variable STATICA_CF_API_TOKEN")
-		missingConfVar = true
+
+		// If --no-dns flag is provided, we do not need Cloudflare and therefore nor the env var
+		if !noDns {
+			missingConfVar = true
+		}
 	}
 
 	return missingConfVar
@@ -111,9 +117,13 @@ var rootCmd = &cobra.Command{
 
 		sa.UploadFilesFromDir(b, uploadDir)
 
-		cf := cloudflare.NewCloudflareWithAPIToken(l, apiToken)
+		if !noDns {
+			cf := cloudflare.NewCloudflareWithAPIToken(l, apiToken)
 
-		cf.ConfigureDomain(domain, b.GetHTTPEndpoint())
+			cf.ConfigureDomain(domain, b.GetHTTPEndpoint())
+		} else {
+			l.Printf("Bucket HTTP endpoint http://%s\n", b.GetHTTPEndpoint())
+		}
 
 		l.Println("Deploy completed")
 	},

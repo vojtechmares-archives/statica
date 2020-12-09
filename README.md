@@ -79,6 +79,7 @@ Default: `.` (current working directory)
 - `bucket-name` - Overrides default bucket name (default bucket name is `domain` argument)
 - `bucket-prefix` - Adds prefix in front of bucket name (does not include separator)
 - `bucket-suffix` - Adds suffix behind bucket name (does not include separator)
+- `no-dns` - Omits DNS record creation
 
 #### statica destroy
 
@@ -95,6 +96,7 @@ statica destroy example.com
 - `bucket-name` - Overrides default bucket name (default bucket name is `domain` argument)
 - `bucket-prefix` - Adds prefix in front of bucket name (does not include separator)
 - `bucket-suffix` - Adds suffix behind bucket name (does not include separator)
+- `no-dns` - Omits DNS record deletion
 
 #### statica version
 

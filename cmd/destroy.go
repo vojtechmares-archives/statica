@@ -15,6 +15,7 @@ func init() {
 	destroyCmd.Flags().StringVar(&bucketName, "bucket-name", "", "Overrides bucket name")
 	destroyCmd.Flags().StringVar(&bucketNamePrefix, "bucket-prefix", "", "Bucket name prefix (empty by default)")
 	destroyCmd.Flags().StringVar(&bucketNameSuffix, "bucket-suffix", "", "Bucket name prefix (empty by default)")
+	destroyCmd.Flags().BoolVar(&noDns, "no-dns", false, "Omits deletion of DNS record")
 	rootCmd.AddCommand(destroyCmd)
 }
 
@@ -53,9 +54,11 @@ var destroyCmd = &cobra.Command{
 
 		a.DestroyBucket(fullBucketName)
 
-		cf := cloudflare.NewCloudflareWithAPIToken(l, apiToken)
+		if !noDns {
+			cf := cloudflare.NewCloudflareWithAPIToken(l, apiToken)
 
-		cf.DestroyDomain(domain)
+			cf.DestroyDomain(domain)
+		}
 
 		l.Println("Destroy completed")
 	},
