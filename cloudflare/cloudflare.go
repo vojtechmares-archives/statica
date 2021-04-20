@@ -1,6 +1,7 @@
 package cloudflare
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"strings"
@@ -42,12 +43,13 @@ func (cf *Cloudflare) ConfigureDomain(domain, content string) {
 
 	if !cf.doesDNSRecordExist(domain) {
 		_, err = cf.api.CreateDNSRecord(
+			context.Background(),
 			zoneID,
 			cloudflare.DNSRecord{
 				Type:    "CNAME",
 				Name:    name,
 				Content: content,
-				Proxied: true,
+				Proxied: pTrue(),
 			},
 		)
 		if err != nil {
@@ -70,9 +72,12 @@ func (cf *Cloudflare) DestroyDomain(domain string) {
 		cf.logger.Fatalf("Error while getting Cloudflare Zone ID for domain\n%v", err)
 	}
 
-	records, err := cf.api.DNSRecords(zoneID, cloudflare.DNSRecord{
-		Type: "CNAME",
-	})
+	records, err := cf.api.DNSRecords(
+		context.Background(),
+		zoneID,
+		cloudflare.DNSRecord{
+			Type: "CNAME",
+		})
 	if err != nil {
 		cf.logger.Fatalf("Error while getting DNS records from Cloudflare\n%v", err)
 	}
@@ -85,7 +90,7 @@ func (cf *Cloudflare) DestroyDomain(domain string) {
 		}
 	}
 
-	err = cf.api.DeleteDNSRecord(zoneID, recordID)
+	err = cf.api.DeleteDNSRecord(context.Background(), zoneID, recordID)
 	if err != nil {
 		cf.logger.Fatalf("Error while deleting Cloudflare DNS record\n%v", err)
 	}
@@ -104,9 +109,12 @@ func (cf *Cloudflare) doesDNSRecordExist(domain string) bool {
 		cf.logger.Fatalf("Error while getting Cloudflare Zone ID for domain\n%v", err)
 	}
 
-	records, err := cf.api.DNSRecords(zoneID, cloudflare.DNSRecord{
-		Type: "CNAME",
-	})
+	records, err := cf.api.DNSRecords(
+		context.Background(),
+		zoneID,
+		cloudflare.DNSRecord{
+			Type: "CNAME",
+		})
 	if err != nil {
 		cf.logger.Fatalf("Error while checking if DNS CNAME record already exists\n%v", err)
 	}
@@ -118,4 +126,9 @@ func (cf *Cloudflare) doesDNSRecordExist(domain string) bool {
 	}
 
 	return false
+}
+
+func pTrue() *bool {
+	t := true
+	return &t
 }
