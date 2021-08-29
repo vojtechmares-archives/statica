@@ -67,7 +67,7 @@ dockers:
         - "vojtechmares/statica:{{ .Tag }}"
       skip_push: false
       dockerfile: Dockerfile
-      binaries:
+      ids:
         - statica
       build_flag_templates:
         - "--platform=linux/amd64"
@@ -91,7 +91,7 @@ dockers:
         - "vojtechmares/statica:{{ .Tag }}-arm64v8"
       skip_push: false
       dockerfile: Dockerfile.arm64v8
-      binaries:
+      ids:
         - statica
       build_flag_templates:
         - "--platform=linux/arm64"
