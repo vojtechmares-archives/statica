@@ -33,6 +33,11 @@ func (aws *AWS) NewBucket(bucketName, region string) *Bucket {
 		return aws.createBucket(bucketName, region)
 	}
 
+	// Tag Bucket
+	aws.tagBucket(bucketName, map[string]string{
+		"statica.created-by": "statica",
+	})
+
 	return &Bucket{
 		Name:   bucketName,
 		Region: region,
@@ -107,4 +112,35 @@ func (aws *AWS) createBucket(bucketName, region string) *Bucket {
 		Name:   bucketName,
 		Region: region,
 	}
+}
+
+func (aws *AWS) tagBucket(bucketName string, tags map[string]string) {
+	svc := aws.getS3()
+
+	var err error
+
+	aws.logger.Println("Tagging bucket...")
+
+	var awsTags []*amazon_s3.Tag
+
+	for key, val := range tags {
+		awsTags = append(awsTags, &amazon_s3.Tag{
+			Key:   amazon_aws.String(key),
+			Value: amazon_aws.String(val),
+		})
+	}
+
+	putInput := &amazon_s3.PutBucketTaggingInput{
+		Bucket: amazon_aws.String(bucketName),
+		Tagging: &amazon_s3.Tagging{
+			TagSet: awsTags,
+		},
+	}
+
+	_, err = svc.PutBucketTagging(putInput)
+	if err != nil {
+		aws.logger.Fatalf("Error occurred while tagging the bucket\n%v\n", err)
+	}
+
+	aws.logger.Println("Bucket tagged")
 }
