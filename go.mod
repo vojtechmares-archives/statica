@@ -3,7 +3,7 @@ module github.com/vojtechmares/statica
 go 1.17
 
 require (
-	github.com/aws/aws-sdk-go v1.40.34
+	github.com/aws/aws-sdk-go v1.41.14
 	github.com/cloudflare/cloudflare-go v0.23.0
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/viper v1.8.1
