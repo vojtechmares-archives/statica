@@ -93,7 +93,7 @@ dockers:
         - "vojtechmares/statica:latest-stable-arm64v8"
         - "vojtechmares/statica:{{ .Tag }}-arm64v8"
       skip_push: false
-      dockerfile: Dockerfile.arm64v8
+      dockerfile: Dockerfile
       ids:
         - statica
       build_flag_templates:
