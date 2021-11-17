@@ -66,8 +66,8 @@ dockers:
       goos: linux
       goarch: amd64
       image_templates:
-        - "vojtechmares/statica:stable"
-        - "vojtechmares/statica:{{ .Tag }}"
+        - "vojtechmares/statica:stable-amd64"
+        - "vojtechmares/statica:{{ .Tag }}-amd64"
       skip_push: false
       dockerfile: Containerfile
       ids:
