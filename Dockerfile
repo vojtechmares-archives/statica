@@ -1,5 +1,5 @@
 FROM scratch
 
-COPY statica /
-
 ENTRYPOINT [ "/statica" ]
+
+COPY statica /
