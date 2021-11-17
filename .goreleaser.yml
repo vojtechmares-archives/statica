@@ -66,7 +66,7 @@ dockers:
       goos: linux
       goarch: amd64
       image_templates:
-        - "vojtechmares/statica:latest-stable"
+        - "vojtechmares/statica:stable"
         - "vojtechmares/statica:{{ .Tag }}"
       skip_push: false
       dockerfile: Dockerfile
@@ -90,7 +90,7 @@ dockers:
     - goos: linux
       goarch: arm64
       image_templates:
-        - "vojtechmares/statica:latest-stable-arm64v8"
+        - "vojtechmares/statica:stable-arm64v8"
         - "vojtechmares/statica:{{ .Tag }}-arm64v8"
       skip_push: false
       dockerfile: Dockerfile
