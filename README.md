@@ -1,5 +1,5 @@
 <p align="center">
-  <h2 align="center">statica</h2>
+  <h1 align="center">statica</h1>
   <p align="center">Simple CLI tool to deploy static websites to AWS S3 with Cloudflare DNS</p>
   <p align="center">
     <a href="https://github.com/vojtechmares/statica/releases/latest"><img alt="Release" src="https://img.shields.io/github/release/vojtechmares/statica.svg?style=for-the-badge"></a>
