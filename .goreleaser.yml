@@ -66,7 +66,6 @@ dockers:
       goos: linux
       goarch: amd64
       image_templates:
-        - "vojtechmares/statica:stable-amd64"
         - "vojtechmares/statica:{{ .Tag }}-amd64"
       skip_push: false
       dockerfile: Containerfile
@@ -92,7 +91,6 @@ dockers:
     - goos: linux
       goarch: arm64
       image_templates:
-        - "vojtechmares/statica:stable-arm64v8"
         - "vojtechmares/statica:{{ .Tag }}-arm64v8"
       skip_push: false
       dockerfile: Containerfile
@@ -121,7 +119,3 @@ docker_manifests:
   image_templates:
   - vojtechmares/statica:{{ .Version }}-amd64
   - vojtechmares/statica:{{ .Version }}-arm64v8
-- name_template: vojtechmares/statica:stable
-  image_templates:
-  - vojtechmares/statica:stable-amd64
-  - vojtechmares/statica:stable-arm64v8
