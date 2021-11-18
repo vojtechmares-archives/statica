@@ -13,7 +13,7 @@ builds:
     ldflags:
       - -s
       - -w
-      - -X github.com/vojtechmares/statica/cmd.version={{.Version}}
+      - -X github.com/vojtechmares/statica/cmd.version={{ .Version }}
     goos:
       - windows
       - linux
@@ -60,15 +60,15 @@ dockers:
         - statica
       build_flag_templates:
         - "--platform=linux/amd64"
-        - "--label=org.opencontainers.image.created={{.Date}}"
-        - "--label=org.opencontainers.image.title={{.ProjectName}}"
-        - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-        - "--label=org.opencontainers.image.version={{.Version}}"
+        - "--label=org.opencontainers.image.created={{ .Date }}"
+        - "--label=org.opencontainers.image.title={{ .ProjectName }}"
+        - "--label=org.opencontainers.image.revision={{ .FullCommit }}"
+        - "--label=org.opencontainers.image.version={{ .Version }}"
         - "--label=org.opencontainers.image.licenses=MIT"
         - "--label=org.label-schema.schema-version=1.0"
-        - "--label=org.label-schema.version={{.Version}}"
-        - "--label=org.label-schema.name={{.ProjectName}}"
-        - "--label=com.github.actions.name={{.ProjectName}}"
+        - "--label=org.label-schema.version={{ .Version }}"
+        - "--label=org.label-schema.name={{ .ProjectName }}"
+        - "--label=com.github.actions.name={{ .ProjectName} }"
         - "--label=com.github.actions.description=Simple CLI tool to deploy static websites to AWS S3 with Cloudflare DNS"
         - "--label=com.github.actions.icon=terminal"
         - "--label=com.github.actions.color=blue"
@@ -85,15 +85,15 @@ dockers:
         - statica
       build_flag_templates:
         - "--platform=linux/arm64/v8"
-        - "--label=org.opencontainers.image.created={{.Date}}"
-        - "--label=org.opencontainers.image.title={{.ProjectName}}"
-        - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-        - "--label=org.opencontainers.image.version={{.Version}}"
+        - "--label=org.opencontainers.image.created={{ .Date }}"
+        - "--label=org.opencontainers.image.title={{ .ProjectName }}"
+        - "--label=org.opencontainers.image.revision={{ .FullCommit }}"
+        - "--label=org.opencontainers.image.version={{ .Version }}"
         - "--label=org.opencontainers.image.licenses=MIT"
         - "--label=org.label-schema.schema-version=1.0"
-        - "--label=org.label-schema.version={{.Version}}"
-        - "--label=org.label-schema.name={{.ProjectName}}"
-        - "--label=com.github.actions.name={{.ProjectName}}"
+        - "--label=org.label-schema.version={{ .Version }}"
+        - "--label=org.label-schema.name={{ .ProjectName }}"
+        - "--label=com.github.actions.name={{ .ProjectName }}"
         - "--label=com.github.actions.description=Simple CLI tool to deploy static websites to AWS S3 with Cloudflare DNS"
         - "--label=com.github.actions.icon=terminal"
         - "--label=com.github.actions.color=blue"
