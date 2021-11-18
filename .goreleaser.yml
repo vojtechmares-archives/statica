@@ -70,6 +70,7 @@ dockers:
         - "vojtechmares/statica:{{ .Tag }}-amd64"
       skip_push: false
       dockerfile: Containerfile
+      use: buildx
       ids:
         - statica
       build_flag_templates:
@@ -94,6 +95,7 @@ dockers:
         - "vojtechmares/statica:{{ .Tag }}-arm64v8"
       skip_push: false
       dockerfile: Containerfile
+      use: buildx
       ids:
         - statica
       build_flag_templates:
