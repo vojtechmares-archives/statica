@@ -3,11 +3,11 @@ module github.com/vojtechmares/statica
 go 1.17
 
 require (
-	github.com/aws/aws-sdk-go v1.40.34
+	github.com/aws/aws-sdk-go v1.42.44
 	github.com/cloudflare/cloudflare-go v0.23.0
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/viper v1.8.1
-	golang.org/x/net v0.0.0-20210614182718-04defd469f4e
+	golang.org/x/net v0.0.0-20211216030914-fe4d6282115f
 )
 
 require (
