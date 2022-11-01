@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/aws/aws-sdk-go v1.40.34
 	github.com/cloudflare/cloudflare-go v0.23.0
-	github.com/spf13/cobra v1.2.1
+	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.8.1
 	golang.org/x/net v0.0.0-20210614182718-04defd469f4e
 )
@@ -13,7 +13,7 @@ require (
 require (
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
-	github.com/inconshreveable/mousetrap v1.0.0 // indirect
+	github.com/inconshreveable/mousetrap v1.0.1 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/mitchellh/mapstructure v1.4.1 // indirect
